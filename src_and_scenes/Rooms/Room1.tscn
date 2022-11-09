@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src_and_scenes/Map.gd" type="Script" id=1]
 [ext_resource path="res://gfx/MapTiles/Door.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src_and_scenes/Player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src_and_scenes/Door.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src_and_scenes/Rooms/BatRoom.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src_and_scenes/Rooms/OxRoom.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=12]
 points = PoolVector2Array( 99, 98.8465, 0, 98.8465, 0, 0.38652, 99, 0.38652 )
@@ -181,6 +182,10 @@ teleport_scene = ExtResource( 11 )
 
 [node name="OxDoor" parent="." instance=ExtResource( 10 )]
 position = Vector2( -851, 995 )
+teleport_scene = ExtResource( 12 )
 
 [node name="Player" parent="." groups=["mob_group"] instance=ExtResource( 9 )]
 position = Vector2( 553, 337 )
+
+[node name="BatPos" type="Position2D" parent="."]
+position = Vector2( 550, 1236 )

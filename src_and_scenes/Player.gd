@@ -20,6 +20,10 @@ var should_update = false
 var flash = false
 #var flash_counter = 0
 var is_bat = false
+var is_ox = false
+
+var add_str_moving = "_normal"
+var add_str_stat = "_idle"
 
 var killed = false
 
@@ -39,43 +43,58 @@ func get_input(velocity_p):
 		velocity_p.x += 1
 		left = false
 		right = true
+		up = false
+		down = false
+		
 		
 		
 	if Input.is_action_pressed("move_left"):
 		velocity_p.x -= 1
 		left = true
 		right = false
+		up = false
+		down = false
 		
 	if Input.is_action_pressed("move_down"):
 		velocity_p.y += 1
 		up = false
 		down = true
+		up = false
+		down = false
 
 	if Input.is_action_pressed("move_up"):
 		velocity_p.y -= 1
 		up = true
 		down = false
-	
-	if Input.is_action_pressed("ui_cancel"):
-		die()
+		up = false
+		down = false
 		
 	
 	# Just Pressed
-		if Input.is_action_just_pressed("move_right"):
-			up = false
-			down = false
-			
-		if Input.is_action_just_pressed("move_left"):
-			up = false
-			down = false
-			
-		if Input.is_action_just_pressed("move_down"):
-			left = false
-			right = false
-			
-		if Input.is_action_just_pressed("move_up"):
-			left = false
-			right = false
+	if Input.is_action_just_released("move_right"):
+		print("Apple")
+		left = false
+		right = false
+		up = false
+		down = false
+		
+	if Input.is_action_just_released("move_left"):
+		left = false
+		right = false
+		up = false
+		down = false
+		
+	if Input.is_action_just_released("move_down"):
+		left = false
+		right = false
+		up = false
+		down = false
+		
+	if Input.is_action_just_released("move_up"):
+		left = false
+		right = false
+		up = false
+		down = false
 	
 	return velocity_p
 
@@ -92,16 +111,27 @@ func get_animation_direction(direction: Vector2):
 	return "down"
 
 func animate_player(direction: Vector2):
+	
 	if direction != Vector2.ZERO:
 		# update last_direction
 		last_direction = direction
 		var animation = "down_normal"
+		
+		if is_bat == true:
+			add_str_moving = "_bat"
+			add_str_stat = "_bat_idle"
+		elif is_ox == true:
+			add_str_moving = "_ox"
+			add_str_stat = "_ox_idle"
+		else:
+			add_str_moving = "_normal"
+			add_str_stat = "_idle"
 		# Choose walk animation based on movement direction
 		if get_animation_direction(last_direction) != "left" and get_animation_direction(last_direction) != "right":
-			animation = get_animation_direction(last_direction) + "_normal"
+			animation = get_animation_direction(last_direction) + add_str_moving
 			
 		else:
-			animation = "right_normal"
+			animation = "right" + add_str_moving
 			$AnimatedSprite.flip_h = get_animation_direction(last_direction) == "left"
 		# Play the walk animation
 		$AnimatedSprite.play(animation)
@@ -109,69 +139,17 @@ func animate_player(direction: Vector2):
 		var animation = "down_idle"
 		# Choose idle animation based on last movement direction and play it
 		if get_animation_direction(last_direction) != "left" and get_animation_direction(last_direction) != "right":
-			animation = get_animation_direction(last_direction) + "_idle"
+			animation = get_animation_direction(last_direction) + add_str_stat
 		else:
-			animation = "right_idle"
+			animation = "right" + add_str_stat
 			$AnimatedSprite.flip_h = get_animation_direction(last_direction) == "left"
 		# Play the walk animation
 		$AnimatedSprite.play(animation)
 
-func animateAll(velocity_p):
-	print($AnimatedSprite.frame)
-	"""
-	
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * MOVEMENT_SPEED
-		
-		$AnimatedSprite.play()
-	else:
-		$AnimatedSprite.stop()
-		if left == true or right == true:
-			$AnimatedSprite.animation = "right_idle"
-			$AnimatedSprite.flip_h = left
-		elif down == true:
-			$AnimatedSprite.animation = "down_idle"
-		elif up == true:
-			$AnimatedSprite.animation = "up_idle"
-
-	velocity = move_and_slide(velocity)
-
-	if velocity.x != 0:
-		$AnimatedSprite.animation = "right_normal"
-		$AnimatedSprite.flip_v = false
-		$AnimatedSprite.flip_h = left
-	elif velocity.y > 0:
-		$AnimatedSprite.animation = "down_normal"
-	"""
-	if should_update == true:
-		$AnimatedSprite.play()
-		if flash == false:
-			if velocity_p.length() <= 0:
-				if left == true or right == true:
-					$AnimatedSprite.animation = "right_idle"
-					$AnimatedSprite.flip_h = left
-				elif down == true:
-					$AnimatedSprite.animation = "idle"
-				elif up == true:
-					$AnimatedSprite.animation = "up_idle"
-					#$AnimatedSprite.flip_h = left
-#			else:
-			if velocity_p.x != 0:
-				$AnimatedSprite.animation = "right_normal"
-				$AnimatedSprite.flip_v = false
-				$AnimatedSprite.flip_h = left
-			if velocity_p.y > 0:
-				#$AnimatedSprite.animation = "up"
-				#$AnimatedSprite.flip_v = velocity_p.y > 0
-				$AnimatedSprite.animation = "down_normal"
-					#if $AnimatedSprite.frame == 0:
-					#	$AnimatedSprite.frame += 1
-		else:
-			$AnimatedSprite.animation = "flash"
-
 # Processing
 func _process(_delta):
 	#get_parent().move_child(self, -1)
+	print(left, right, up, down)
 	if room == 0:
 		$Camera2D.limit_left = -1200
 		$Camera2D.limit_top = -800
@@ -182,8 +160,8 @@ func _process(_delta):
 	if killed == false:
 		if flash == false:
 			velocity = get_input(velocity)
-		else:
-			$FlashTimer.start()
+#		else:
+#			$FlashTimer.start()
 
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * MOVEMENT_SPEED
@@ -202,7 +180,14 @@ func _process(_delta):
 	#				die()
 				pass
 			if "Powerup" in collision.collider.name:
-				is_bat = true
+				if collision.collider.bat_or_ox == false:
+					is_bat = true
+				else:
+					is_ox = true
+				start_flash()
+#			if "Crate" in collision.collider.name:
+#				if is_ox == false:
+#					collision.collider.push(velocity*5000000000000)
 		#print("Collided with: ", collision.collider.name)
 	else:
 		$AnimatedSprite.animation = "death_normal"
@@ -222,10 +207,17 @@ func _on_Player_hit():
 	pass # Replace with function body.
 
 func _on_FlashTimer_timeout():
+	print("Apple")
 	flash = false
 	$FlashTimer.stop()
 	$AnimatedSprite.animation = "down_idle"
+	velocity.x += 1
+	velocity = move_and_slide(velocity)
+	animate_player(velocity)
 
+func start_flash():
+	flash = true
+	$FlashTimer.start()
 
 func _on_AnimatedSprite_animation_finished():
 	if killed == true:

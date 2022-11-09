@@ -4,24 +4,26 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+export var bat_or_ox = false # false = bat, true = ox
+
 var up = true
 var down = false
 
 var velocity = Vector2.ZERO
 var original_pos = position
 
-var batStyle = true
 var collected = false
-
-func getStyle(style_num):
-	if style_num == 0:
-		batStyle = true
 	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	original_pos = position
 	$CollisionShape2D.set_deferred("disabled", false)
+	if bat_or_ox == false:
+		$AnimatedSprite.animation = "bat"
+	else:
+		$AnimatedSprite.animation = "ox"
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,7 +50,6 @@ func _process(_delta):
 			print(collision)
 			if "Player" in collision.collider.name:
 				#collected = true
-				hide()
-				$CollisionShape2D.set_deferred("disabled", true)
+				queue_free()
 	else:
 		pass
