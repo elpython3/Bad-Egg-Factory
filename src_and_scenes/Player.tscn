@@ -1,207 +1,72 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://gfx/Octocat/Stationary/octocat.png" type="Texture" id=1]
-[ext_resource path="res://gfx/Octocat/Stationary/octocat_powerupFlash.png" type="Texture" id=2]
-[ext_resource path="res://gfx/Octocat/Walk/normal_down.png" type="Texture" id=3]
-[ext_resource path="res://gfx/Octocat/Stationary/up_idle.png" type="Texture" id=4]
-[ext_resource path="res://gfx/Octocat/Stationary/right_idle.png" type="Texture" id=5]
+[ext_resource path="res://gfx/Player/body.png" type="Texture" id=1]
+[ext_resource path="res://gfx/Player/crack.png" type="Texture" id=2]
 [ext_resource path="res://src_and_scenes/Player.gd" type="Script" id=6]
-[ext_resource path="res://gfx/Octocat/Walk/normal_right.png" type="Texture" id=7]
-[ext_resource path="res://gfx/Octocat/Walk/normal_up.png" type="Texture" id=8]
-[ext_resource path="res://gfx/Octocat/Stationary/death_normal.png" type="Texture" id=9]
 
-[sub_resource type="AtlasTexture" id=28]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 100, 100 )
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 44, 60 )
 
-[sub_resource type="AtlasTexture" id=29]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 100, 0, 100, 100 )
+atlas = ExtResource( 2 )
+region = Rect2( 44, 0, 44, 60 )
 
-[sub_resource type="AtlasTexture" id=30]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 200, 0, 100, 100 )
+atlas = ExtResource( 2 )
+region = Rect2( 88, 0, 44, 60 )
 
-[sub_resource type="AtlasTexture" id=31]
+[sub_resource type="AtlasTexture" id=6]
 flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 300, 0, 100, 100 )
+atlas = ExtResource( 2 )
+region = Rect2( 132, 0, 44, 60 )
 
-[sub_resource type="AtlasTexture" id=32]
+[sub_resource type="AtlasTexture" id=7]
 flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 400, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=33]
-flags = 4
-atlas = ExtResource( 9 )
-region = Rect2( 500, 0, 100, 100 )
+atlas = ExtResource( 2 )
+region = Rect2( 176, 0, 44, 60 )
 
 [sub_resource type="AtlasTexture" id=8]
 flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=9]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 100, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=10]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 200, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=11]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 300, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=14]
-flags = 4
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=15]
-flags = 4
-atlas = ExtResource( 3 )
-region = Rect2( 100, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=12]
-flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 100, 100 )
+region = Rect2( 220, 0, 44, 60 )
 
-[sub_resource type="AtlasTexture" id=13]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 100, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=20]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=21]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 100, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=22]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 200, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=23]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 300, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=24]
-flags = 4
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=25]
-flags = 4
-atlas = ExtResource( 7 )
-region = Rect2( 100, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=16]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=17]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 100, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=18]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 200, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=19]
-flags = 4
-atlas = ExtResource( 4 )
-region = Rect2( 300, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=26]
-flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="AtlasTexture" id=27]
-flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 100, 0, 100, 100 )
-
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": false,
-"name": "death_normal",
+"name": "crack",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "down_idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
-"loop": true,
-"name": "down_normal",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
-"name": "flash",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
-"loop": true,
-"name": "right_idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 24 ), SubResource( 25 ) ],
-"loop": true,
-"name": "right_normal",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "up_idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 26 ), SubResource( 27 ) ],
-"loop": true,
-"name": "up_normal",
+"name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 38, 44 )
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 16.0
+height = 24.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="RigidBody2D"]
+scale = Vector2( 1.04, 1 )
+collision_mask = 0
+contacts_reported = 500
+contact_monitor = true
 script = ExtResource( 6 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 7 )
-animation = "death_normal"
+position = Vector2( 0, 2 )
+frames = SubResource( 1 )
+animation = "crack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-
-[node name="FlashTimer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="FallTimer" type="Timer" parent="."]
 
 [connection signal="hit" from="." to="." method="_on_Player_hit"]
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
-[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
+[connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]

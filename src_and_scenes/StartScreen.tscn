@@ -39,27 +39,18 @@ margin_right = 79.5
 size_flags_vertical = 3
 custom_constants/separation = 20
 
-[node name="NewGame" type="Button" parent="MenuOptions"]
+[node name="PlayGame" type="Button" parent="MenuOptions"]
 margin_right = 159.0
 margin_bottom = 67.0
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
-text = "New Game"
-expand_icon = true
-
-[node name="LoadGame" type="Button" parent="MenuOptions"]
-margin_top = 87.0
-margin_right = 159.0
-margin_bottom = 154.0
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 5 )
-text = "Load Game"
+text = "Play"
 expand_icon = true
 
 [node name="Settings" type="Button" parent="MenuOptions"]
-margin_top = 174.0
+margin_top = 87.0
 margin_right = 159.0
-margin_bottom = 241.0
+margin_bottom = 154.0
 size_flags_horizontal = 9
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
@@ -84,5 +75,4 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[connection signal="pressed" from="MenuOptions/NewGame" to="." method="_on_NewGame_pressed"]
-[connection signal="pressed" from="MenuOptions/LoadGame" to="." method="_on_LoadGame_pressed"]
+[connection signal="pressed" from="MenuOptions/PlayGame" to="." method="_on_NewGame_pressed"]

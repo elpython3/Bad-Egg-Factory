@@ -28,7 +28,7 @@ func new_game():
 	var ERR = get_tree().change_scene_to(main_room)
 
 	if ERR != OK:
-		print("something failed in the door scene")
+		print("FAIL: ", ERR)
 	
 	#print(get_tree().get_nodes_in_group("mob_group")[0])
 

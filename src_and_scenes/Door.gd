@@ -7,17 +7,21 @@ extends Area2D
 
 export(PackedScene) var teleport_scene
 export var KILL_PLAYER = false
+export var TELEPORT_ROOM = ""
+
 
 var body
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_parent().move_child(self, 1)
+	#get_parent().move_child(self, 1)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$AnimatedSprite.play()
+	#print(get_tree())
 	
 	#move_and_slide(Vector2.ZERO)
 	#print(get_slide_count())
@@ -33,7 +37,14 @@ func _process(_delta):
 #			collided = true
 
 func next_level():
-	var ERR = get_tree().change_scene_to(teleport_scene)
+	var ERR
+	#print(get_tree())
+	if TELEPORT_ROOM == "":
+		ERR = get_tree().change_scene_to(teleport_scene)
+	else:
+		if TELEPORT_ROOM == "main_room":
+			#print(get_tree())
+			ERR = get_tree().change_scene("res://src_and_scenes/Rooms/Room1.tscn")
 	
 	if ERR != OK:
 		print("something failed in the door scene")
@@ -48,5 +59,6 @@ func _on_Door_body_entered(body_p):
 func _on_FlashTimer_timeout():
 	if KILL_PLAYER == false:
 		next_level()
+		
 	else:
 		body.die()
