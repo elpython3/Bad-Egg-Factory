@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src_and_scenes/Map.gd" type="Script" id=1]
 [ext_resource path="res://gfx/MapTiles/Door.png" type="Texture" id=2]
@@ -9,9 +9,14 @@
 [ext_resource path="res://gfx/MapTiles/brick2.png" type="Texture" id=7]
 [ext_resource path="res://gfx/MapTiles/brick5.png" type="Texture" id=8]
 [ext_resource path="res://src_and_scenes/Player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src_and_scenes/ResultScreen.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src_and_scenes/Belt.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src_and_scenes/Rooms/RoomTemplate.gd" type="Script" id=12]
 [ext_resource path="res://src_and_scenes/Camera.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src_and_scenes/Finish.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src_and_scenes/FallingWind.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src_and_scenes/Spring.tscn" type="PackedScene" id=16]
+[ext_resource path="res://src_and_scenes/PauseScreen.tscn" type="PackedScene" id=17]
 
 [sub_resource type="ConvexPolygonShape2D" id=12]
 points = PoolVector2Array( 99, 98.8465, 0, 98.8465, 0, 0.38652, 99, 0.38652 )
@@ -166,6 +171,7 @@ points = PoolVector2Array( 100.516, 100.795, 0, 100.795, 0, 0.326019, 100.516, 0
 [node name="RoomTemplate" type="Node2D"]
 script = ExtResource( 12 )
 CONVEYOR_SCENE = ExtResource( 11 )
+SPRING_SCENE = ExtResource( 16 )
 
 [node name="Map" type="TileMap" parent="."]
 tile_set = SubResource( 11 )
@@ -175,13 +181,28 @@ tile_data = PoolIntArray( -1900556, 4, 0, -65535, 5, 0, -65534, 1, 0, -65533, 1,
 script = ExtResource( 1 )
 
 [node name="StartPos" type="Position2D" parent="."]
-position = Vector2( 555, 336 )
+position = Vector2( 547, 33 )
 
 [node name="Camera" parent="." instance=ExtResource( 13 )]
-position = Vector2( 553, 337 )
+position = Vector2( 548, 33 )
+
+[node name="FallingWind" parent="." instance=ExtResource( 15 )]
 
 [node name="Player" parent="." groups=["mob_group"] instance=ExtResource( 9 )]
-position = Vector2( 553, 337 )
+position = Vector2( 547, 32 )
 
+[node name="Finish" parent="." instance=ExtResource( 14 )]
+position = Vector2( 511, 1033 )
+
+[node name="Pause" parent="." instance=ExtResource( 17 )]
+
+[node name="ResultScreen" parent="." instance=ExtResource( 10 )]
+
+[connection signal="pause" from="Camera" to="." method="_on_Camera_pause"]
 [connection signal="run" from="Camera" to="." method="_on_Camera_run"]
-[connection signal="hard_hit" from="Player" to="." method="_on_Player_hard_hit"]
+[connection signal="finish" from="Player" to="." method="_on_Player_finish"]
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="restart" from="Pause" to="." method="_on_Pause_restart"]
+[connection signal="resume" from="Pause" to="." method="_on_Pause_resume"]
+[connection signal="retry" from="Pause" to="." method="_on_Pause_retry"]
+[connection signal="retry" from="ResultScreen" to="." method="_on_ResultScreen_retry"]

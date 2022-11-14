@@ -20,10 +20,6 @@ func game_over():
 	pass
 
 func new_game():
-#	$Player.start($StartPosition.position)
-#	$Map.show()
-#	$Map.show_new_tiles()
-#
 	updateErasoldiers = true
 	var ERR = get_tree().change_scene_to(main_room)
 

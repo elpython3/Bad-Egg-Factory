@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var left_or_right = false
+export var left_or_right = false # false = right
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -10,12 +10,11 @@ var mouse_in = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if left_or_right == false:
-		$AnimatedSprite.play("default", true)
+	$AnimatedSprite.flip_h = !left_or_right
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _on_Belt_mouse_entered():

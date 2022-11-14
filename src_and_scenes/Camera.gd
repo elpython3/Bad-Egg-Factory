@@ -6,16 +6,15 @@ extends Area2D
 # var b = "text"
 var velocity = Vector2.ZERO
 var SPEED = 200
-var is_rotating = false
 var editable = true
 signal run
+signal pause
 
 func get_editable(editable_p):
 	editable = editable_p
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$CollisionShape2D.show()
-	#pass # Replace with function body.
+	$Run.show()
 
 func get_input(velocity_p):
 	if editable == true:
@@ -36,28 +35,19 @@ func _process(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * SPEED
 	position += velocity * delta
-#	position.x = clamp(position.x, 0, screen_size.x)
-#	position.y = clamp(position.y, 0, screen_size.y)
-	#$Camera2D.rotate(deg2rad(10))
-
-
-
-func _on_RotateTimer_timeout():
-	is_rotating = false
-	#rotation_degrees = 0
+	
+func start(pos):
+	$Run.show()
+	$Run.disabled = false
+	position = pos
+	
 
 
 func _on_Run_pressed():
 	$Run.hide()
+	$Run.disabled = true
 	emit_signal("run")
 
 
-func _on_Camera_body_entered(body):
-	print("Apple")
-	if "Map" in body.name:
-		print("Banana")
-		if velocity.x > 0 or velocity.x < 0:
-			velocity.x = 0
-		if velocity.y > 0 or velocity.y < 0:
-			velocity.y = 0
-		position += velocity
+func _on_Pause_pressed():
+	emit_signal("pause")

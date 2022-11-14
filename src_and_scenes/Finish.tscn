@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://gfx/MapTiles/finish.png" type="Texture" id=1]
+[ext_resource path="res://src_and_scenes/FinishCollision.tscn" type="PackedScene" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="FinishContainer" type="StaticBody2D"]
+position = Vector2( -51, -35 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 51, 35 )
+frames = SubResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 51.5, 34.5 )
+scale = Vector2( 1.33523, 1.3125 )
+polygon = PoolVector2Array( -33, -45, -32, 39, -27, 45, 27, 45, 32, 39, 33, -45, 27, -45, 27, 37, -28, 38, -28, -45 )
+
+[node name="FinishCollision" parent="." instance=ExtResource( 2 )]
+position = Vector2( 24, -10 )
