@@ -7,6 +7,7 @@ export var room = 0
 
 # Movement Constants
 const MOVEMENT_SPEED = 100
+const BOUNCE_SPEED = 150
 const ACCELERATION = 0.8
 
 var frame_counter = 0
@@ -89,7 +90,24 @@ func checkCollisions(_delta):
 	var collisionList = get_colliding_bodies()
 	if(get_colliding_bodies().size() > 0):
 		if "Spring" in collisionList[0].get_name():
-			apply_central_impulse((collisionList[0].raycast.cast_to).normalized() * 250)
+			print(round(rad2deg(collisionList[0].rotation)))
+			if round(collisionList[0].rotation) == deg2rad(0):
+				apply_central_impulse(Vector2(0, -1).normalized()*BOUNCE_SPEED)
+			elif round(rad2deg(collisionList[0].rotation)) == 45:
+				print("Apple")
+				apply_central_impulse(Vector2(1, -1).normalized()*BOUNCE_SPEED)
+			elif round(rad2deg(collisionList[0].rotation)) == 90:
+				apply_central_impulse(Vector2(1, 0).normalized()*BOUNCE_SPEED)
+			elif round(rad2deg(collisionList[0].rotation)) == 135:
+				apply_central_impulse(Vector2(1, 1).normalized()*BOUNCE_SPEED)
+			elif round(rad2deg(collisionList[0].rotation)) == 180:
+				apply_central_impulse(Vector2(0, 1).normalized()*BOUNCE_SPEED)
+			elif round(rad2deg(collisionList[0].rotation)) == -135:
+				apply_central_impulse(Vector2(-1, 1).normalized()*BOUNCE_SPEED)
+			elif round(rad2deg(collisionList[0].rotation)) == -90:
+				apply_central_impulse(Vector2(-1, 0).normalized()*BOUNCE_SPEED)
+			elif round(rad2deg(collisionList[0].rotation)) == -45:
+				apply_central_impulse(Vector2(-1, -1).normalized()*BOUNCE_SPEED)
 		elif should_die == true:
 			if finished == false:
 				die()
@@ -125,6 +143,7 @@ func start(pos):
 	finished = false
 	should_die = false
 	killed = false
+	
 	
 	#set_deferred("mode", RigidBody2D.MODE_STATIC)
 

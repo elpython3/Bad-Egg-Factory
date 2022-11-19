@@ -6,20 +6,22 @@ extends KinematicBody2D
 # var b = "text"
 var velocity = Vector2.ZERO
 var original_pos
-var raycast
+var cast_dir
 var mouse_in = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	original_pos = position
-	raycast = $RayCast2D
+	cast_dir = $RayCast2D.cast_to# - position
 	$AnimatedSprite.animation = "default"
 	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print($RayCast2D.cast_to)
+#	print($RayCast2D.cast_to)
+	$RayCast2D.rotation = rotation
+	cast_dir = $RayCast2D.global_position
 	velocity = Vector2.ZERO
 	#print(original_pos - position)
 	velocity = original_pos - position
@@ -37,18 +39,19 @@ func _process(delta):
 	else:
 		$AnimatedSprite.animation = "default"
 
-func get_rot():
-	var mouse_pos = get_global_mouse_position()
-	var dist1 = abs(mouse_pos.x - position.x)
-	var dist2 = abs(mouse_pos.y - position.y)
-	var dist3 = sqrt(pow(dist1, 2) + pow(dist2, 2))
-	var angle = acos((pow(dist3, 2) - (pow(dist1, 2) + pow(dist2, 2)))/(2 * dist1 * dist2))
-	rotate(angle)
+func get_rot(reverse):
+	if reverse == false:
+		rotate(deg2rad(45))
+	else:
+		rotate(deg2rad(-45))
 #	c^2=a^2+b^2-2*a*b*cos(theta)
 #	(c^2-(a^2 + b^2))/2 * a * b =cos(theta)
 
-func _on_Spring_mouse_entered():
+
+
+func _on_SpringCollisions_mouse_entered():
 	mouse_in = true
 
-func _on_Spring_mouse_exited():
+
+func _on_SpringCollisions_mouse_exited():
 	mouse_in = false

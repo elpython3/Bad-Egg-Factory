@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://gfx/MapTiles/spring.png" type="Texture" id=1]
 [ext_resource path="res://src_and_scenes/Spring.gd" type="Script" id=2]
+[ext_resource path="res://src_and_scenes/SpringCollisions.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -30,6 +31,7 @@ animations = [ {
 height = 28.0
 
 [node name="Spring" type="KinematicBody2D"]
+position = Vector2( 0, -8 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -46,5 +48,7 @@ position = Vector2( 0, -26 )
 enabled = true
 cast_to = Vector2( 0, -18 )
 
-[connection signal="mouse_entered" from="." to="." method="_on_Spring_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_Spring_mouse_exited"]
+[node name="SpringCollisions" parent="." instance=ExtResource( 3 )]
+
+[connection signal="mouse_entered" from="SpringCollisions" to="." method="_on_SpringCollisions_mouse_entered"]
+[connection signal="mouse_exited" from="SpringCollisions" to="." method="_on_SpringCollisions_mouse_exited"]
