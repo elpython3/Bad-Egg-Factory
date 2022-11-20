@@ -10,12 +10,12 @@ height = 32.0
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 360, 120 )
+region = Rect2( 0, 0, 360, 180 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 360, 0, 360, 120 )
+region = Rect2( 360, 0, 360, 180 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -36,9 +36,10 @@ scale = Vector2( 5, 5 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 1, 19 )
+position = Vector2( 1, 29 )
 scale = Vector2( 0.592361, 0.445833 )
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_Belt_mouse_entered"]

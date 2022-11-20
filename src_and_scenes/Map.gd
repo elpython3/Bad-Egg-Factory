@@ -2,7 +2,7 @@ extends TileMap
 class_name InteractiveTilemap
 
 export(Dictionary) var TILE_SCENES := {
-	6: preload("res://src_and_scenes/Door.tscn")
+	#6: preload("res://src_and_scenes/Door.tscn")
 }
 
 onready var half_cell_size := cell_size * 0.5
