@@ -10,9 +10,11 @@ var editable = true
 var restart = false
 var paused = false
 var should_show_result = false
-var reserved_clicks = 0
 var last_spring = weakref(null)
 var init = false
+var finish_play = false
+var play_game_over = false
+var player_path = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,17 +27,19 @@ func _process(_delta):
 	$Camera.get_editable(editable)
 	if editable == false:
 		$Camera.position = $Player.position-($Camera.screen_size)/2
+	$BG.position = $Camera.position
+	$FinishSFX.position = $Camera.position
 	$Pause.get_shouldShow(paused)
 	$FallingWind.get_player($Player)
 	if paused == false:
 		$Player.get_should_update(!editable)
 	else:
 		$Player.get_should_update(!paused)
+	update()
 	
-#	for spring in get_tree().get_nodes_in_group("springs"):
-#		print(spring.raycast.cast_to)
-	
-		
+func _draw():
+	for i in player_path:
+		draw_circle(i, 5, Color8(240, 240, 240))
 
 func _input(event):
 	if Input.is_action_just_pressed("right_click"):
@@ -60,7 +64,6 @@ func _input(event):
 				spring_inst.add_to_group("springs")
 				add_child(spring_inst)
 				move_child(spring_inst, 4)
-				reserved_clicks = 1
 				last_spring = weakref(spring_inst)
 				return
 			else:
@@ -75,11 +78,10 @@ func _input(event):
 				return
 	if Input.is_action_just_pressed("left_click"):
 		if editable == true:
-			if reserved_clicks > 0:
-				if (!last_spring.get_ref()):
-					pass
-				else:
-					last_spring.get_ref().get_rot(false)
+			if (!last_spring.get_ref()):
+				pass
+			else:
+				last_spring.get_ref().get_rot(false)
 
 func start():
 	#$Player.position = $StartPos.position
@@ -109,6 +111,8 @@ func start():
 
 func _on_Camera_run():
 	editable = false
+	player_path.clear()
+	$PointAdd.start()
 	if (!last_spring.get_ref()):
 		pass
 	else:
@@ -118,11 +122,18 @@ func _on_Camera_run():
 func _on_Player_hit():
 	should_show_result = true
 	$ResultScreen.good_or_bad = false
+	$BG.stop()
+	if play_game_over == false:
+		if $GameOverSFX.playing == false:
+			$GameOverSFX.play()
+			play_game_over = true
+	$PointAdd.stop()
 
 
 func _on_ResultScreen_retry():
 	if $ResultScreen.good_or_bad == true:
 		restart = true
+	init = false
 	start()
 
 func _on_ResultScreen_next():
@@ -134,6 +145,9 @@ func _on_ResultScreen_next():
 func _on_Player_finish():
 	should_show_result = true
 	$ResultScreen.good_or_bad = true
+	$BG.stop()
+	
+	
 
 
 
@@ -159,3 +173,20 @@ func _on_Pause_retry():
 
 func _on_BG_finished():
 	$BG.play()
+
+
+func _on_FinishSFX_finished():
+	$FinishSFX.stop()
+
+
+func _on_Finish_player_entered():
+	if $FinishSFX.playing == false:
+		$FinishSFX.play()
+
+
+func _on_GameOverSFX_finished():
+	$GameOverSFX.stop()
+
+
+func _on_PointAdd_timeout():
+	player_path.push_back($Player.position)

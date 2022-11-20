@@ -63,9 +63,9 @@ func _process(_delta):
 func _physics_process(delta):
 	if finished == false:
 		if blow_left == true:
-			velocity.x -= 10
+			velocity.x -= 5
 		elif blow_right == true:
-			velocity.x += 10
+			velocity.x += 5
 		if convey_left == true:
 			velocity.x -= 5
 		elif convey_right == true:
@@ -90,11 +90,9 @@ func checkCollisions(_delta):
 	var collisionList = get_colliding_bodies()
 	if(get_colliding_bodies().size() > 0):
 		if "Spring" in collisionList[0].get_name():
-			print(round(rad2deg(collisionList[0].rotation)))
 			if round(collisionList[0].rotation) == deg2rad(0):
 				apply_central_impulse(Vector2(0, -1).normalized()*BOUNCE_SPEED)
 			elif round(rad2deg(collisionList[0].rotation)) == 45:
-				print("Apple")
 				apply_central_impulse(Vector2(1, -1).normalized()*BOUNCE_SPEED)
 			elif round(rad2deg(collisionList[0].rotation)) == 90:
 				apply_central_impulse(Vector2(1, 0).normalized()*BOUNCE_SPEED)

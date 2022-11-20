@@ -34,3 +34,7 @@ func _on_Restart_pressed():
 
 func _on_Retry_pressed():
 	emit_signal("retry")
+
+
+func _on_HowToPlay_pressed():
+	$HowToPlay2.should_show = true

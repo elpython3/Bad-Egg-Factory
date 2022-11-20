@@ -18,13 +18,10 @@ func _process(delta):
 
 func _on_Wind_body_entered(body):
 	if body.name == "Player":
-		#print("Apple")
 		if direction == false:
 			body.blow_left = true
 		elif direction == true:
 			body.blow_right = true
-		else:
-			print("Variable direction can only be \"left\" or \"right\". Your variable: ", direction)
 
 
 func _on_Wind_body_exited(body):

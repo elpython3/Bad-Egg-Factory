@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src_and_scenes/Map.gd" type="Script" id=1]
 [ext_resource path="res://gfx/MapTiles/Door.png" type="Texture" id=2]
@@ -20,6 +20,9 @@
 [ext_resource path="res://src_and_scenes/PauseRunIcons.tscn" type="PackedScene" id=18]
 [ext_resource path="res://src_and_scenes/Wind.tscn" type="PackedScene" id=19]
 [ext_resource path="res://sfx/music/ambient.wav" type="AudioStream" id=20]
+[ext_resource path="res://sfx/music/finish.wav" type="AudioStream" id=21]
+[ext_resource path="res://sfx/music/gameover.wav" type="AudioStream" id=22]
+[ext_resource path="res://src_and_scenes/Rooms/Room7.tscn" type="PackedScene" id=23]
 
 [sub_resource type="ConvexPolygonShape2D" id=12]
 points = PoolVector2Array( 99, 98.8465, 0, 98.8465, 0, 0.38652, 99, 0.38652 )
@@ -175,8 +178,10 @@ points = PoolVector2Array( 100.516, 100.795, 0, 100.795, 0, 0.326019, 100.516, 0
 script = ExtResource( 12 )
 CONVEYOR_SCENE = ExtResource( 11 )
 SPRING_SCENE = ExtResource( 16 )
+NEXT_ROOM = ExtResource( 23 )
 
 [node name="Map" type="TileMap" parent="."]
+show_behind_parent = true
 tile_set = SubResource( 11 )
 cell_size = Vector2( 96, 96 )
 format = 1
@@ -222,8 +227,20 @@ direction = true
 [node name="BG" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 20 )
 
+[node name="FinishSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 21 )
+volume_db = 12.0
+
+[node name="GameOverSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 22 )
+volume_db = 12.0
+
+[node name="PointAdd" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="finish" from="Player" to="." method="_on_Player_finish"]
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="player_entered" from="Finish" to="." method="_on_Finish_player_entered"]
 [connection signal="pause" from="Camera" to="." method="_on_Camera_pause"]
 [connection signal="run" from="Camera" to="." method="_on_Camera_run"]
 [connection signal="pause" from="Buttons" to="." method="_on_Camera_pause"]
@@ -234,3 +251,4 @@ stream = ExtResource( 20 )
 [connection signal="next" from="ResultScreen" to="." method="_on_ResultScreen_next"]
 [connection signal="retry" from="ResultScreen" to="." method="_on_ResultScreen_retry"]
 [connection signal="finished" from="BG" to="." method="_on_BG_finished"]
+[connection signal="timeout" from="PointAdd" to="." method="_on_PointAdd_timeout"]

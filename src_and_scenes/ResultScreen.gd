@@ -10,6 +10,7 @@ signal next
 export var good_or_bad = false # false is bad, true is good
 export var level_name = ""
 export var level_description = ""
+export var final_level = false
 var should_show = false
 var level_show = true
 
@@ -43,11 +44,16 @@ func _process(_delta):
 				$NextButton.hide()
 			elif good_or_bad == true:
 				$TitleMessage.text = "Congratulations!"
-				$Message.text = "You beat the level!"
+				if final_level == false:
+					$Message.text = "You beat the level!"
+				else:
+					$Message.text = "You beat the entire game! To replay, please reopen the game."
 				$RetryButton.show()
 				$RetryButton.text = "Replay Level"
-				$NextButton.show()
-				$NextButton.text = "Next Level"
+				
+				if final_level == false:
+					$NextButton.show()
+					$NextButton.text = "Next Level"
 	else:
 		hide()
 
@@ -56,7 +62,8 @@ func _on_RetryButton_pressed():
 
 
 func _on_NextButton_pressed():
-	emit_signal("next")
+	if final_level == false:
+		emit_signal("next")
 
 
 func _on_LevelShowTimer_timeout():
