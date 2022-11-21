@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src_and_scenes/Map.gd" type="Script" id=1]
 [ext_resource path="res://gfx/MapTiles/Door.png" type="Texture" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://src_and_scenes/Rooms/RoomTemplate.gd" type="Script" id=12]
 [ext_resource path="res://src_and_scenes/Camera.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src_and_scenes/Finish.tscn" type="PackedScene" id=14]
-[ext_resource path="res://src_and_scenes/Rooms/Room2.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src_and_scenes/FallingWind.tscn" type="PackedScene" id=16]
 [ext_resource path="res://src_and_scenes/Spring.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src_and_scenes/PauseScreen.tscn" type="PackedScene" id=18]
@@ -177,7 +176,6 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 script = ExtResource( 12 )
 CONVEYOR_SCENE = ExtResource( 11 )
 SPRING_SCENE = ExtResource( 17 )
-NEXT_ROOM = ExtResource( 15 )
 
 [node name="Map" type="TileMap" parent="."]
 show_behind_parent = true
