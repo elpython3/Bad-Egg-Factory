@@ -31,10 +31,5 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 1 )
 texture_hover = ExtResource( 3 )
 
-[node name="ResetTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
 [connection signal="pressed" from="Run" to="." method="_on_Run_pressed"]
 [connection signal="pressed" from="Pause" to="." method="_on_Pause_pressed"]
-[connection signal="timeout" from="ResetTimer" to="." method="_on_ResetTimer_timeout"]
