@@ -15,6 +15,7 @@ var init = false
 var finish_play = false
 var play_game_over = false
 var player_path = []
+var update_player = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,10 +32,12 @@ func _process(_delta):
 	$FinishSFX.position = $Camera.position
 	$Pause.get_shouldShow(paused)
 	$FallingWind.get_player($Player)
-	if paused == false:
-		$Player.get_should_update(!editable)
+	if paused == false and editable == false:
+		update_player = true
 	else:
-		$Player.get_should_update(!paused)
+		update_player = false
+	#$Player.get_should_update(!editable)
+	$Player.get_should_update(update_player)
 	update()
 	
 func _draw():
@@ -84,7 +87,7 @@ func _input(event):
 				last_spring.get_ref().get_rot(false)
 
 func start():
-	#$Player.position = $StartPos.position
+	$Player.position = $StartPos.position
 	$Camera.start($StartPos.position)
 	$Camera/Camera2D.limit_left = $TopLeftMin.position.x
 	$Camera/Camera2D.limit_right = $BottomRightMin.position.x
@@ -92,6 +95,7 @@ func start():
 	$Camera/Camera2D.limit_bottom = $BottomRightMin.position.y
 	$Buttons.start()
 	$Player.start($StartPos.position)
+	print($Player.position, $StartPos.position)
 	$Player.killed = false
 	$ResultScreen.start()
 	if restart == true:
@@ -106,6 +110,9 @@ func start():
 		$BG.play()
 		
 		init = true
+	play_game_over = false
+	$FinishSFX.stop()
+	$GameOverSFX.stop()
 
 
 
@@ -134,6 +141,7 @@ func _on_ResultScreen_retry():
 	if $ResultScreen.good_or_bad == true:
 		restart = true
 	init = false
+	editable = true
 	start()
 
 func _on_ResultScreen_next():
@@ -166,6 +174,9 @@ func _on_Pause_restart():
 
 
 func _on_Pause_retry():
+	init = false
+	editable = true
+	print("Apple")
 	paused = false
 	start()
 
