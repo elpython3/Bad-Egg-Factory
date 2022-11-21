@@ -21,8 +21,9 @@ _global_script_class_icons={
 [application]
 
 config/name="Bad Egg Factory"
+config/description="A game made for the Github Game-Off 2022 game jam."
 run/main_scene="res://src_and_scenes/Main.tscn"
-config/icon="res://icon.png"
+config/icon="res://gfx/Player/body.png"
 
 [display]
 
