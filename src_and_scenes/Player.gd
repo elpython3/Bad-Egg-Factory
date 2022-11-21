@@ -28,6 +28,7 @@ var finished = false
 var killed = false
 var should_die = false
 var falling_hard = false
+var start_emit_kill = false
 
 var old_pos
 var dist = 0.0
@@ -62,6 +63,8 @@ func _process(_delta):
 		$AnimatedSprite.animation = "crack"
 	if finished == true:
 		emit_signal("finish")
+	if start_emit_kill == true:
+		emit_signal("hit")
 		
 func _physics_process(delta):
 	if finished == false:
@@ -147,13 +150,16 @@ func start(pos):
 	show()
 	position = pos
 	$AnimatedSprite.animation = "default"
-	#set_deferred("mode", RigidBody2D.MODE_STATIC)
+	rotation = 0
+	print(position, pos)
+	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	should_update = false
 	finished = false
 	should_die = false
 	killed = false
 	play_crack = false
 	start_kill_timer = false
+	start_emit_kill = false
 	
 	
 	#set_deferred("mode", RigidBody2D.MODE_STATIC)
@@ -167,4 +173,4 @@ func _on_AnimatedSprite_animation_finished():
 
 
 func _on_KillTimer_timeout():
-	emit_signal("hit")
+	start_emit_kill = true

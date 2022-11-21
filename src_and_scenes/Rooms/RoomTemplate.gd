@@ -106,6 +106,7 @@ func start():
 		$BG.play()
 		
 		init = true
+	play_game_over = false
 
 
 
