@@ -68,7 +68,7 @@ margin_right = 500.0
 margin_bottom = -32.0
 size_flags_vertical = 5
 custom_fonts/font = SubResource( 4 )
-text = "Verson 0.1
+text = "Version 0.1
 Author: elpython3
 Made for the Github Game-Off 2022 Game Jam
 Proudly Made With Godot!"

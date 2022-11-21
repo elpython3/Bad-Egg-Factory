@@ -13,11 +13,10 @@
 script = ExtResource( 7 )
 
 [node name="Run" type="TextureButton" parent="."]
-margin_left = 1090.0
-margin_top = 34.0
-margin_right = 1140.0
-margin_bottom = 84.0
-toggle_mode = true
+margin_left = 1082.0
+margin_top = 39.0
+margin_right = 1132.0
+margin_bottom = 89.0
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 6 )
@@ -32,10 +31,5 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 1 )
 texture_hover = ExtResource( 3 )
 
-[node name="ResetTimer" type="Timer" parent="."]
-wait_time = 0.05
-one_shot = true
-
 [connection signal="pressed" from="Run" to="." method="_on_Run_pressed"]
 [connection signal="pressed" from="Pause" to="." method="_on_Pause_pressed"]
-[connection signal="timeout" from="ResetTimer" to="." method="_on_ResetTimer_timeout"]
