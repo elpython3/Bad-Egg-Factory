@@ -238,6 +238,7 @@ wait_time = 0.5
 [connection signal="restart" from="Pause" to="." method="_on_Pause_restart"]
 [connection signal="resume" from="Pause" to="." method="_on_Pause_resume"]
 [connection signal="retry" from="Pause" to="." method="_on_Pause_retry"]
+[connection signal="finish" from="ResultScreen" to="." method="_on_ResultScreen_finish"]
 [connection signal="next" from="ResultScreen" to="." method="_on_ResultScreen_next"]
 [connection signal="retry" from="ResultScreen" to="." method="_on_ResultScreen_retry"]
 [connection signal="finished" from="BG" to="." method="_on_BG_finished"]

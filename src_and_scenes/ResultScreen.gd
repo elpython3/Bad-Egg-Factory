@@ -6,7 +6,7 @@ extends CanvasLayer
 # var b = "text"
 signal retry
 signal next
-
+signal finish
 export var good_or_bad = false # false is bad, true is good
 export var level_name = ""
 export var level_description = ""
@@ -50,10 +50,11 @@ func _process(_delta):
 					$Message.text = "You beat the entire game! To replay, please reopen the game."
 				$RetryButton.show()
 				$RetryButton.text = "Replay Level"
-				
+				$NextButton.show()
 				if final_level == false:
-					$NextButton.show()
 					$NextButton.text = "Next Level"
+				else:
+					$NextButton.text = "Title Screen"
 	else:
 		hide()
 
@@ -64,6 +65,8 @@ func _on_RetryButton_pressed():
 func _on_NextButton_pressed():
 	if final_level == false:
 		emit_signal("next")
+	else:
+		emit_signal("finish")
 
 
 func _on_LevelShowTimer_timeout():
