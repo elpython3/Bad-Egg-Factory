@@ -60,6 +60,7 @@ func _process(_delta):
 
 func _on_RetryButton_pressed():
 	emit_signal("retry")
+	
 
 
 func _on_NextButton_pressed():

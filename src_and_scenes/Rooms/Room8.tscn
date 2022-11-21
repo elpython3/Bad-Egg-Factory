@@ -204,10 +204,8 @@ position = Vector2( 548, 33 )
 [node name="Buttons" parent="." instance=ExtResource( 18 )]
 
 [node name="Pause" parent="." instance=ExtResource( 17 )]
-visible = false
 
 [node name="ResultScreen" parent="." instance=ExtResource( 10 )]
-visible = false
 level_name = "Level 8"
 level_description = "Tight Corridors"
 

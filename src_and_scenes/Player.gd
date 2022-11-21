@@ -142,8 +142,9 @@ func die():
 	if start_kill_timer == false:
 		$KillTimer.start()
 		start_kill_timer = true
+#	emit_signal("hit")
 	
-	#set_deferred("mode", RigidBody2D.MODE_STATIC)
+	set_deferred("mode", RigidBody2D.MODE_STATIC)
 
 func start(pos):
 	set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
@@ -151,7 +152,7 @@ func start(pos):
 	position = pos
 	$AnimatedSprite.animation = "default"
 	rotation = 0
-	print(position, pos)
+	position = pos
 	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	should_update = false
 	finished = false
