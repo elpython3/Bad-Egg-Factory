@@ -16,6 +16,8 @@ var velocity = Vector2.ZERO
 var last_direction = Vector2.ZERO
 var screen_size
 var should_update = false
+var play_crack = false
+var start_kill_timer = false
 
 var blow_left = false
 var blow_right = false
@@ -30,6 +32,7 @@ var falling_hard = false
 var old_pos
 var dist = 0.0
 var y_speed = 0
+
 
 func get_playerPos(_position):
 	pass
@@ -90,6 +93,8 @@ func checkCollisions(_delta):
 	var collisionList = get_colliding_bodies()
 	if(get_colliding_bodies().size() > 0):
 		if "Spring" in collisionList[0].get_name():
+			if $Bounce.playing == false:
+				$Bounce.play()
 			if round(collisionList[0].rotation) == deg2rad(0):
 				apply_central_impulse(Vector2(0, -1).normalized()*BOUNCE_SPEED)
 			elif round(rad2deg(collisionList[0].rotation)) == 45:
@@ -108,6 +113,9 @@ func checkCollisions(_delta):
 				apply_central_impulse(Vector2(-1, -1).normalized()*BOUNCE_SPEED)
 		elif should_die == true:
 			if finished == false:
+				if play_crack == false:
+					$Crack.play()
+					play_crack = true
 				die()
 		else:
 			if "Belt" in collisionList[0].get_name():
@@ -128,7 +136,10 @@ func _integrate_forces(_state):
 func die():
 	killed = true
 	set_deferred("mode", RigidBody2D.MODE_STATIC)
-	emit_signal("hit")
+	if start_kill_timer == false:
+		$KillTimer.start()
+		start_kill_timer = true
+	
 	#set_deferred("mode", RigidBody2D.MODE_STATIC)
 
 func start(pos):
@@ -141,6 +152,8 @@ func start(pos):
 	finished = false
 	should_die = false
 	killed = false
+	play_crack = false
+	start_kill_timer = false
 	
 	
 	#set_deferred("mode", RigidBody2D.MODE_STATIC)
@@ -151,3 +164,7 @@ func _on_AnimatedSprite_animation_finished():
 		hide()
 
 
+
+
+func _on_KillTimer_timeout():
+	emit_signal("hit")
