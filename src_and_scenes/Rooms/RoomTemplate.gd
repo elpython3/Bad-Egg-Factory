@@ -190,3 +190,9 @@ func _on_GameOverSFX_finished():
 
 func _on_PointAdd_timeout():
 	player_path.push_back($Player.position)
+
+
+func _on_ResultScreen_finish():
+	var ERR = get_tree().change_scene("res://src_and_scenes/Main.tscn")
+	if ERR != OK:
+		print("FAIL: ", ERR)
