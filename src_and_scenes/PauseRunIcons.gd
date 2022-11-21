@@ -22,13 +22,8 @@ func start():
 	$Run.disabled = false
 
 func _on_Run_pressed():
-	$ResetTimer.start()
-	
+	$Run.disabled = true
+	emit_signal("run")
 
 func _on_Pause_pressed():
 	emit_signal("pause")
-
-
-func _on_ResetTimer_timeout():
-	$Run.disabled = true
-	emit_signal("run")
