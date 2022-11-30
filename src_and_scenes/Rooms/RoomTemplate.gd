@@ -95,7 +95,6 @@ func start():
 	$Camera/Camera2D.limit_bottom = $BottomRightMin.position.y
 	$Buttons.start()
 	$Player.start($StartPos.position)
-	print($Player.position, $StartPos.position)
 	$Player.killed = false
 	$ResultScreen.start()
 	if restart == true:
@@ -176,7 +175,6 @@ func _on_Pause_restart():
 func _on_Pause_retry():
 	init = false
 	editable = true
-	print("Apple")
 	paused = false
 	start()
 
